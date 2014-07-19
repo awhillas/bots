@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}No orders found for {{ date|date:"l d F Y" }}{% endblock %}
+{% block page_title %}No orders found{% endblock %}
+{% block page_subtitle %}{{ date|date:"l d F Y" }}{% endblock %}
+
+{% block page_content %}
+
+<p>No orders found for {{ date|date:"l d F Y" }}?</p>
+
+{% endblock %}

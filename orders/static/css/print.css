@@ -1,0 +1,17 @@
+@media screen {
+	.page-break, div.divFooter {
+		display: none;
+	}
+}
+@media print {
+	.page-break	{ 
+		display: block; 
+		page-break-before: always;
+	}
+}
+
+td {
+	padding: 0.2em 1em;
+	border: 1px solid grey;
+}
+

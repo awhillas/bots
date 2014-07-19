@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Orders{% endblock %}
+{% block page_title %}Orders{% endblock %}
+{% block page_subtitle %}Orders listing{% endblock %}
+
+{% block page_content %}
+	<ul>
+		{% for order in object_list %}
+			<li>{{ order.name }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

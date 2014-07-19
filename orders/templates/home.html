@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Brickfields Order Tracking System (BOTS){% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}
+	<a href="{% url 'cut_sheet' %}" class="pure-button">Cut Sheet</a>
+	<a href="{% url 'packing_slips' %}" class="pure-button">Packing Slips</a>
+{% endblock %}
+
+{% block page_content %}
+	{% include "orders/standingorders_pivot_table.html" with caption="Standing Order Totals" %}
+{% endblock %}

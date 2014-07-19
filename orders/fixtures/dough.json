@@ -1,0 +1,66 @@
+[
+{
+    "pk": 1, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "White Sourdough"
+    }
+},
+{
+    "pk": 2, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "Rye & Carraway"
+    }
+},
+{
+    "pk": 3, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "Soy & Linseed"
+    }
+},
+{
+    "pk": 4, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "Fruit & Nut"
+    }
+},
+{
+    "pk": 5, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "Olive bread"
+    }
+},
+{
+    "pk": 6, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": true, 
+        "name": "Ciabatta"
+    }
+},
+{
+    "pk": 7, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": false, 
+        "name": "Pastry"
+    }
+},
+{
+    "pk": 8, 
+    "model": "orders.dough", 
+    "fields": {
+        "regular_bake": false, 
+        "name": "other"
+    }
+}
+]

@@ -1,0 +1,20 @@
+<fieldset>
+{{ formset.management_form }}
+{% for form in formset %}
+	{% for field in form %}
+		{% if field.is_hidden %}
+			{{ field }}
+		{% else %}
+			<div class="pure-control-group">
+				{{ field.errors }}
+				{{ field.label_tag }} {{ field }}
+				<aside class="pure-form-message-inline">{{field.help_text}}</aside>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+</fieldset>
+
+<div class="pure-controls">
+	<button type="submit" class="pure-button pure-button-primary">Submit</button>
+</div>

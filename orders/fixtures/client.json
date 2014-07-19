@@ -1,0 +1,22 @@
+[
+{
+    "pk": 1, 
+    "model": "orders.client", 
+    "fields": {
+        "notes": "Surplus orders", 
+        "name": "extras", 
+        "primary_phone": "", 
+        "accounts_phone": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "orders.client", 
+    "fields": {
+        "notes": "Inhouse cafe.", 
+        "name": "Brickfields", 
+        "primary_phone": "", 
+        "accounts_phone": ""
+    }
+}
+]

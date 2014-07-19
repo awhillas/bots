@@ -1,0 +1,37 @@
+[
+{
+    "pk": 1, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Sourdough"
+    }
+},
+{
+    "pk": 2, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Yeasted Bread"
+    }
+},
+{
+    "pk": 3, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Pastry"
+    }
+},
+{
+    "pk": 4, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Cakes"
+    }
+},
+{
+    "pk": 5, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Other"
+    }
+}
+]

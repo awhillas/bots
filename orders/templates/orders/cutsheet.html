@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Cutsheet {{ date|date:"l d F Y" }}{% endblock %}
+{% block page_title %}Cutsheet{% endblock %}
+{% block page_subtitle %}{{ date|date:"l d F Y" }}{% endblock %}
+
+{% block page_content %}
+
+<table class="pure-table">
+	<caption>Dough Weights, Totals</caption>
+	<thead>
+		<tr>
+			{% for k,v in dough_totals.items %}
+				<th>{{ k }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			{% for k,v in dough_totals.items %}
+				<td>{{ v|intcomma }}g</td>
+			{% endfor %}
+		</tr>
+	</tbody>
+</table>
+
+<h2>Bakes of {{ date|date:"l d F Y" }}</h2>
+
+<table class="pure-table">
+	<thead>
+		<tr>
+			<th></th>
+			{% for bake in bake_list %}
+			<th>{{ bake }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for dough, products in product_tallys.items %}
+			<tr><th colspan="4" class="Dough">{{ dough }}</th></tr>
+			{% for product, totals in products.items %}
+			<tr>
+				<td>{{ product }}</td>
+				{% for i in totals %}
+					<td>{{ i }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

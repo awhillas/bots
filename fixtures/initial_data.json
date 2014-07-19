@@ -1,0 +1,1424 @@
+[
+{
+    "pk": 1, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "logentry", 
+        "name": "log entry", 
+        "app_label": "admin"
+    }
+},
+{
+    "pk": 2, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "permission", 
+        "name": "permission", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 3, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "group", 
+        "name": "group", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 4, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "user", 
+        "name": "user", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 5, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "contenttype", 
+        "name": "content type", 
+        "app_label": "contenttypes"
+    }
+},
+{
+    "pk": 6, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "session", 
+        "name": "session", 
+        "app_label": "sessions"
+    }
+},
+{
+    "pk": 7, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "address", 
+        "name": "address", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": 8, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "client", 
+        "name": "client", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": 9, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "order", 
+        "name": "order", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": 10, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "product", 
+        "name": "product", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": 11, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "category", 
+        "name": "category", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": 12, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "dough", 
+        "name": "dough", 
+        "app_label": "orders"
+    }
+},
+{
+    "pk": "qdv3vjuzo3p7m0xysdi4vjnfmuitb28v", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2014-05-22T01:52:53Z", 
+        "session_data": "NGMzZjJlMjMzYjBmYjY2ODgyNWUwM2ZkNTgyOTBmMDBhZjViMTJmMzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": 1, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Sourdough"
+    }
+},
+{
+    "pk": 2, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Yeasted Bread"
+    }
+},
+{
+    "pk": 3, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Pastry"
+    }
+},
+{
+    "pk": 4, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Cakes"
+    }
+},
+{
+    "pk": 5, 
+    "model": "orders.category", 
+    "fields": {
+        "name": "Other"
+    }
+},
+{
+    "pk": 1, 
+    "model": "orders.address", 
+    "fields": {
+        "address1": "11/1 Edward St", 
+        "address2": "", 
+        "suburb": "Bondi Beach", 
+        "state": "NSW", 
+        "client": 1, 
+        "postcode": "2026"
+    }
+},
+{
+    "pk": 1, 
+    "model": "orders.client", 
+    "fields": {
+        "name": "Alexander Whillas", 
+        "primary_phone": "0481 319 430", 
+        "accounts_phone": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "orders.order", 
+    "fields": {
+        "product": 19, 
+        "client": 1, 
+        "quantity": 50
+    }
+},
+{
+    "pk": 4, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Sourdough Sandwich Loaf", 
+        "weight": 1800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt", 
+        "price": "11.90", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 5, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Sourdough Batards", 
+        "weight": 700, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt", 
+        "price": "4.80", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 6, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Olive Loaf", 
+        "weight": 1000, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Black Olives", 
+        "price": "10.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 7, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Olive Round", 
+        "weight": 650, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Black Olives", 
+        "price": "5.50", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 8, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Rye & Caraway", 
+        "weight": 800, 
+        "ingredients": "Unbleached Organic Flour, Rye Flour, Water, Salt, Carraway", 
+        "price": "5.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 9, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Rye & Caraway", 
+        "weight": 1350, 
+        "ingredients": "Unbleached Organic Flour, Rye Flour, Water, Salt, Carraway", 
+        "price": "10.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 10, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "5.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 11, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 1350, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "10.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 12, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 1800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "12.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 13, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Fruit & Nut Loaf", 
+        "weight": 1200, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Currants, Raisins, Toasted Walnuts, Dried Figs", 
+        "price": "8.50", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 14, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Fruit & Nut Loaf", 
+        "weight": 650, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Currants, Raisins, Toasted Walnuts, Dried Figs", 
+        "price": "5.50", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 15, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 160, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "1.10", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 16, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 130, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "1.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 17, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 100, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "0.80", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 18, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Seeded Ciabatta roll", 
+        "weight": 130, 
+        "ingredients": "Organic Flour, Water, Salt, Linseed, Sesame Seed, Fennel, Caraway", 
+        "price": "1.20", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 19, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 3, 
+        "name": "Croissant", 
+        "weight": 120, 
+        "ingredients": "Organic Flour, Milk, Yeast, Raw Sugar, Butter", 
+        "price": "1.35", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 20, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 3, 
+        "name": "Chocolate Croissant", 
+        "weight": 120, 
+        "ingredients": "Organic Flour, Milk, Yeast, Raw Sugar, Butter, Dark Chocolate", 
+        "price": "1.50", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 21, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 4, 
+        "name": "Banana Bread", 
+        "weight": 1700, 
+        "ingredients": "Butter, Castor Sugar, Free Range Eggs, Vanilla, Bicarbonate of Soda, Salt, Cinammon, All Spice, Buttermilk", 
+        "price": "15.50", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 22, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 4, 
+        "name": "Brickfields Brownies", 
+        "weight": null, 
+        "ingredients": "Flour, Unsalted Butter, Salt, Sugar, Vanilla, Eggs, Dark Chocolate, White Chocolate. Current variations - whiskey, raisin and walnut - white chocolate and hazelnut", 
+        "price": "2.00", 
+        "dough_type": null, 
+        "sliced": false, 
+        "large_change_qty": null, 
+        "active": true, 
+        "special": false, 
+        "lead_time": 2
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_logentry", 
+        "name": "Can add log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_logentry", 
+        "name": "Can change log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_logentry", 
+        "name": "Can delete log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_permission", 
+        "name": "Can add permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_permission", 
+        "name": "Can change permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_permission", 
+        "name": "Can delete permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_group", 
+        "name": "Can add group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_group", 
+        "name": "Can change group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_group", 
+        "name": "Can delete group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_user", 
+        "name": "Can add user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_user", 
+        "name": "Can change user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_user", 
+        "name": "Can delete user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 13, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_contenttype", 
+        "name": "Can add content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 14, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_contenttype", 
+        "name": "Can change content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 15, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_contenttype", 
+        "name": "Can delete content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 16, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_session", 
+        "name": "Can add session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 17, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_session", 
+        "name": "Can change session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 18, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_session", 
+        "name": "Can delete session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 19, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_address", 
+        "name": "Can add address", 
+        "content_type": [
+            "orders", 
+            "address"
+        ]
+    }
+},
+{
+    "pk": 20, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_address", 
+        "name": "Can change address", 
+        "content_type": [
+            "orders", 
+            "address"
+        ]
+    }
+},
+{
+    "pk": 21, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_address", 
+        "name": "Can delete address", 
+        "content_type": [
+            "orders", 
+            "address"
+        ]
+    }
+},
+{
+    "pk": 22, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_client", 
+        "name": "Can add client", 
+        "content_type": [
+            "orders", 
+            "client"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_client", 
+        "name": "Can change client", 
+        "content_type": [
+            "orders", 
+            "client"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_client", 
+        "name": "Can delete client", 
+        "content_type": [
+            "orders", 
+            "client"
+        ]
+    }
+},
+{
+    "pk": 25, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_order", 
+        "name": "Can add order", 
+        "content_type": [
+            "orders", 
+            "order"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_order", 
+        "name": "Can change order", 
+        "content_type": [
+            "orders", 
+            "order"
+        ]
+    }
+},
+{
+    "pk": 27, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_order", 
+        "name": "Can delete order", 
+        "content_type": [
+            "orders", 
+            "order"
+        ]
+    }
+},
+{
+    "pk": 28, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_product", 
+        "name": "Can add product", 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 29, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_product", 
+        "name": "Can change product", 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 30, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_product", 
+        "name": "Can delete product", 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 31, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_category", 
+        "name": "Can add category", 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 32, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_category", 
+        "name": "Can change category", 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 33, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_category", 
+        "name": "Can delete category", 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 34, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_dough", 
+        "name": "Can add dough", 
+        "content_type": [
+            "orders", 
+            "dough"
+        ]
+    }
+},
+{
+    "pk": 35, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_dough", 
+        "name": "Can change dough", 
+        "content_type": [
+            "orders", 
+            "dough"
+        ]
+    }
+},
+{
+    "pk": 36, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_dough", 
+        "name": "Can delete dough", 
+        "content_type": [
+            "orders", 
+            "dough"
+        ]
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "alex", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-05-08T01:52:53Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$ZJ2dUYfMWLdL$stcsEZQtZnwxPCdwD/SOv/1Y29RIeNlg3G182/4wyBw=", 
+        "email": "whillas@gmail.com", 
+        "date_joined": "2014-05-08T01:52:00Z"
+    }
+},
+{
+    "pk": 1, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T07:40:59Z", 
+        "object_repr": "Category", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T07:42:40Z", 
+        "object_repr": "Category", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T07:42:48Z", 
+        "object_repr": "Category", 
+        "object_id": "3", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T07:42:55Z", 
+        "object_repr": "Category", 
+        "object_id": "4", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T07:43:04Z", 
+        "object_repr": "Category", 
+        "object_id": "5", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "category"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:19:35Z", 
+        "object_repr": "Sourdough Sandwich Loaf, 1800", 
+        "object_id": "4", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:34:37Z", 
+        "object_repr": "Sourdough Batards, 700g", 
+        "object_id": "5", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:35:11Z", 
+        "object_repr": "Olive Loaf, 1,000g", 
+        "object_id": "6", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:35:41Z", 
+        "object_repr": "Olive Round, 650g", 
+        "object_id": "7", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:36:33Z", 
+        "object_repr": "Rye & Caraway, 800g", 
+        "object_id": "8", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:37:16Z", 
+        "object_repr": "Rye & Caraway, 1,350g", 
+        "object_id": "9", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:37:46Z", 
+        "object_repr": "Soy & Linseed, 800g", 
+        "object_id": "10", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 13, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:38:11Z", 
+        "object_repr": "Soy & Linseed, 1,350g", 
+        "object_id": "11", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 14, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:38:39Z", 
+        "object_repr": "Soy & Linseed, 1,800g", 
+        "object_id": "12", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 15, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:39:21Z", 
+        "object_repr": "Fruit & Nut Loaf, 1,200g", 
+        "object_id": "13", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 16, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:39:57Z", 
+        "object_repr": "Fruit & Nut Loaf, 650g", 
+        "object_id": "14", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 17, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:41:15Z", 
+        "object_repr": "Ciabatta Roll, 160g", 
+        "object_id": "15", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 18, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:41:48Z", 
+        "object_repr": "Ciabatta Roll, 130g", 
+        "object_id": "16", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 19, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:42:15Z", 
+        "object_repr": "Ciabatta Roll, 100g", 
+        "object_id": "17", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 20, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:47:36Z", 
+        "object_repr": "Seeded Ciabatta roll, 130g", 
+        "object_id": "18", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 21, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:48:31Z", 
+        "object_repr": "Croissant, 120g", 
+        "object_id": "19", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 22, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:49:05Z", 
+        "object_repr": "Chocolate Croissant, 120g", 
+        "object_id": "20", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:49:45Z", 
+        "object_repr": "Banana Bread, 1,700g", 
+        "object_id": "21", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:50:31Z", 
+        "object_repr": "Brickfields Brownies, Noneg", 
+        "object_id": "22", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 25, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:51:58Z", 
+        "object_repr": "Alexander Whillas", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "client"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-05-08T08:52:34Z", 
+        "object_repr": "Order", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "alex"
+        ], 
+        "content_type": [
+            "orders", 
+            "order"
+        ]
+    }
+}
+]

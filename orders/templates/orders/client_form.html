@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load to_class_name %}
+
+{% block title %}New{% endblock %}
+{% block page_title %}New{% endblock %}
+{% block page_subtitle %}Fill in the form and click submit.{% endblock %}
+
+{% block page_content %}
+
+<form action="" method="post" class="pure-form pure-form-aligned">
+	{% csrf_token %}
+	{% include "pure_form.html" %}
+	{% for formlet in formset %}
+		{% include "pure_form.html" with form=formlet %}
+	{% endfor %}
+
+	<div class="pure-controls">
+		<button type="submit" class="pure-button pure-button-primary">Submit</button>
+	</div>
+</form>
+
+{% endblock %}

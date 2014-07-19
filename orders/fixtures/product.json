@@ -1,0 +1,322 @@
+[
+{
+    "pk": 4, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Sourdough Sandwich Loaf", 
+        "weight": 1800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt", 
+        "price": "11.90", 
+        "dough_type": 1, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 5, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Sourdough Batards", 
+        "weight": 700, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt", 
+        "price": "4.80", 
+        "dough_type": 1, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 6, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Olive Loaf", 
+        "weight": 1000, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Black Olives", 
+        "price": "10.00", 
+        "dough_type": 5, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 7, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Olive Round", 
+        "weight": 650, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Black Olives", 
+        "price": "5.50", 
+        "dough_type": 5, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 8, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Rye & Caraway", 
+        "weight": 800, 
+        "ingredients": "Unbleached Organic Flour, Rye Flour, Water, Salt, Carraway", 
+        "price": "5.00", 
+        "dough_type": 2, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 9, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Rye & Caraway", 
+        "weight": 1350, 
+        "ingredients": "Unbleached Organic Flour, Rye Flour, Water, Salt, Carraway", 
+        "price": "10.00", 
+        "dough_type": 2, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 10, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "5.00", 
+        "dough_type": 3, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 11, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 1350, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "10.00", 
+        "dough_type": 3, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 12, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Soy & Linseed", 
+        "weight": 1800, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Soy, Linseed", 
+        "price": "12.00", 
+        "dough_type": 3, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 13, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Fruit & Nut Loaf", 
+        "weight": 1200, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Currants, Raisins, Toasted Walnuts, Dried Figs", 
+        "price": "8.50", 
+        "dough_type": 4, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 14, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 1, 
+        "name": "Fruit & Nut Loaf", 
+        "weight": 650, 
+        "ingredients": "Unbleached Organic Flour, Organic Stoneground Flour, Water, Salt, Currants, Raisins, Toasted Walnuts, Dried Figs", 
+        "price": "5.50", 
+        "dough_type": 4, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 15, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 160, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "1.10", 
+        "dough_type": 6, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 16, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 130, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "1.00", 
+        "dough_type": 6, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 17, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Ciabatta Roll", 
+        "weight": 100, 
+        "ingredients": "Organic Flour, Water, Salt, Yeast", 
+        "price": "0.80", 
+        "dough_type": 6, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 18, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 2, 
+        "name": "Seeded Ciabatta roll", 
+        "weight": 130, 
+        "ingredients": "Organic Flour, Water, Salt, Linseed, Sesame Seed, Fennel, Caraway", 
+        "price": "1.20", 
+        "dough_type": 6, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 19, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 3, 
+        "name": "Croissant", 
+        "weight": 120, 
+        "ingredients": "Organic Flour, Milk, Yeast, Raw Sugar, Butter", 
+        "price": "1.35", 
+        "dough_type": 7, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 20, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 3, 
+        "name": "Chocolate Croissant", 
+        "weight": 120, 
+        "ingredients": "Organic Flour, Milk, Yeast, Raw Sugar, Butter, Dark Chocolate", 
+        "price": "1.50", 
+        "dough_type": 7, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 21, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 4, 
+        "name": "Banana Bread", 
+        "weight": 1700, 
+        "ingredients": "Butter, Castor Sugar, Free Range Eggs, Vanilla, Bicarbonate of Soda, Salt, Cinammon, All Spice, Buttermilk", 
+        "price": "15.50", 
+        "dough_type": 7, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 22, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 4, 
+        "name": "Brickfields Brownies", 
+        "weight": 0, 
+        "ingredients": "Flour, Unsalted Butter, Salt, Sugar, Vanilla, Eggs, Dark Chocolate, White Chocolate. Current variations - whiskey, raisin and walnut - white chocolate and hazelnut", 
+        "price": "2.00", 
+        "dough_type": 7, 
+        "sliced": false, 
+        "large_change_qty": 10, 
+        "active": true, 
+        "special": false
+    }
+},
+{
+    "pk": 24, 
+    "model": "orders.product", 
+    "fields": {
+        "category": 5, 
+        "name": "Hot Cross Buns", 
+        "weight": 0, 
+        "ingredients": "Something", 
+        "price": "1.80", 
+        "dough_type": 7, 
+        "sliced": false, 
+        "large_change_qty": 20, 
+        "active": false, 
+        "special": true
+    }
+}
+]

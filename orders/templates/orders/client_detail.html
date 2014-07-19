@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }}, Client Details{% endblock %}
+{% block page_title %}{{ object.name }}{% endblock %}
+{% block page_subtitle %}
+<a href="{% url 'client_edit' object.pk %}" class="pure-button button-edit button-xsmall">Edit</a>
+<a href="{% url 'client_deactivate' object.pk %}"  class="pure-button button-delete button-xsmall">Delete</a>
+{% endblock %}
+
+{% block page_content %}
+
+	<p>Phone: {{ object.primary_phone }}</p>
+	<p>Accounts Phone:{{ object.accounts_phone }}</p>
+	
+	<h2 class="content-subhead">Notes</h2>
+	<p>{{ object.notes }}</p>
+	
+	<h2 class="content-subhead">Orders</h2>
+	{% for bake, sot in bake_standing_order_tables.items %}
+		<h2>{{ bake }} <a href="{% url 'client_edit_standingorders' object.pk %}" class="pure-button button-edit button-xsmall">Edit</a></h2>
+		{% include "orders/standingorders_pivot_table.html" with caption="Standing Order Totals" %}
+	{% endfor %}
+	
+{% endblock %}

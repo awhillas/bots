@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Products{% endblock %}
+{% block page_title %}Products{% endblock %}
+{% block page_subtitle %}
+<a href="{% url 'product_new' %}" title="Create a new product" class="pure-button button-create button-xsmall">New</a>
+{% endblock %}
+
+{% block page_content %}
+	<ul>
+		{% for product in object_list %}
+			<li><a href="{% url 'product_details' product.pk %}">{{ product.name }}</a> ({{ product.weight|intcomma }}g)</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

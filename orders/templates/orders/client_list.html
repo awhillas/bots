@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Clients{% endblock %}
+{% block page_title %}Clients{% endblock %}
+{% block page_subtitle %}
+<a href="{% url 'client_new' %}" title="Create a new client" class="pure-button button-create button-small">New</a>
+{% endblock %}
+
+{% block page_content %}
+	<ul>
+		{% for client in object_list %}
+			<li><a href="{{ client.get_absolute_url }}">{{ client.name }}</a> ph.{{ client.primary_phone }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

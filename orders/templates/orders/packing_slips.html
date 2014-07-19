@@ -1,0 +1,34 @@
+{% extends 'dh5bp/base.html' %}
+{% load url from future %}
+{% load staticfiles %}
+
+{% block head %}
+	<link rel="stylesheet" href="{% static "css/print.css" %}">
+	<style>
+	td { font-size: 0.9em;}
+	h1, h2 { padding: 0; margin: 0; }
+	h2 { font-size: 1em; }
+	</style>
+{% endblock %}
+
+{% block content %}
+	{% for client, bakes in slips.iteritems %}
+		<h1>{{ client }}</h1>
+		<h2> {{ day|date:"l d F Y" }}</h2>
+		<h2>{{ client.address }}</h2>
+		<table>
+			<tbody>
+				{% for bake, orders in bakes.iteritems %}
+					<tr><th colspan="2">{{ bake }}</th></tr>
+					{% for o in orders %}
+						<tr>
+							<td>{{ o.product }}</td>
+							<td>{{ o.quantity }}</td>
+						</tr>
+					{% endfor %}
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="page-break"></div>
+	{% endfor %}
+{% endblock %}

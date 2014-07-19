@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load to_class_name %}
+{% load order_tags %}
+
+{% block title %}{{ client }}: Edit Standing Orders{% endblock %}
+{% block page_title %}Edit Standing Orders{% endblock %}
+{% block page_subtitle %}{{ client }}{% endblock %}
+{% block css %}
+<style>
+.Qty input {
+	width: 4em;
+}
+</style>
+{% endblock %}
+
+{% block page_content %}
+	{% for bake, formset in bake_formsets.items %}
+		<h2>{{ bake }}</h2>
+		<form action="" method="post" class="pure-form pure-form-aligned">
+			{% csrf_token %}
+			{{ formset.management_form }}
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						{% for d in days %}
+							<th>{{ d }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					{% for form in formset %}
+						{% if forloop.counter0 == 0 %}<th>{{ products|index:0 }}</th>{% endif %}{# for the first product #}
+						{% if forloop.counter0|divisibleby:7 and forloop.counter0 != 0 %}
+							</tr><tr><th>{{forloop.counter0|div:7}}</th>
+						{% endif %}
+						<td class="Qty"> 
+							{% for field in form %}
+								{{field}}
+							{% endfor %}
+						</td>
+					{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+			<div class="pure-controls">
+				<button type="submit" class="pure-button pure-button-primary">Submit</button>
+			</div>
+		</form>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load humanize %}
+<table class="pure-table pure-table-striped">
+	<caption>{{ caption }}</caption>
+	<thead>
+		<tr>
+			<th></th>
+			{% for d in days %}
+				<th>{{ d }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for dough, products in sot.items %}
+		<tr><th colspan="8">{{ dough }}</th></tr>
+			{% for product, totals in products.items %}
+			<tr>
+				<th>{{ product }}</th>
+				{% for i in totals %}
+					<td>{{ i }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		{% endfor %}
+	</tbody>
+</table>

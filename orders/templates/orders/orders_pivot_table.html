@@ -1,0 +1,30 @@
+<table class="pure-table pure-table-striped">
+	<caption>{{ caption }}</caption>
+	<thead>
+		<tr>
+			<th></th>
+			{% for c in pivot.columns.values %}
+				<th>{{ c }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for row in pivot.values %}
+		<tr>
+			{% spaceless %}
+			
+			{% for product in pivot.axes.0 %}
+				{% if forloop.counter == forloop.parentloop.counter %}
+					<th>{{ product }}</th>
+				{% endif %}
+			{% endfor %}
+			
+			{% for i in row %}
+				<td>{{ i }}</td>
+			{% endfor %}
+			
+			{% endspaceless %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

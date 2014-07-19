@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Deletion{% endblock %}
+{% block page_title %}Confirm Deletion{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+<form action="" method="post">{% csrf_token %}
+	<p>Are you sure you want to delete <strong>"{{ object }}"</strong>?</p>
+	<input type="submit" value="Confirm" class="pure-button button-delete" />
+</form>
+{% endblock %}
