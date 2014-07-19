@@ -189,21 +189,29 @@ class ClientStandingOrdersEditView(View):
 			
 			StandingOrdersFormSet = modelformset_factory(Order, form=OrderFormlet, extra=0, can_order=False, can_delete=False)
 			qs = StandingOrder.objects.filter(client=client).filter(bake=bake).filter(product=products)
-			pt = qs.to_pivot_table(
-				fieldnames=['product', 'day_of_week', 'quantity'],
-				rows=['product'], 
-				cols=['day_of_week'], 
-				values='quantity', 
-				aggfunc=sum	
-			).fillna(0.0).astype(int)
-			init_data = []
-			print bake, pt
-			qantities = pt.get_values()
+			if len(qs) > 0:
+				#sot = get_standing_orderes_table(qs)
+				pt = qs.to_pivot_table(
+					fieldnames=['product', 'day_of_week', 'quantity'],
+					rows=['product'], 
+					cols=['day_of_week'], 
+					values='quantity', 
+					aggfunc=sum	
+				).fillna(0.0).astype(int)
+				init_data = []
+				qantities = pt.get_values()
+			else:
+				# No standing orders so need to generate 2D zeros array
+				qantities = [[0 for i in range(7)] for j in range(len(products))]
+			
+			print qantities
+				
 			for i, p in enumerate(products):
 				for d in range(1, 8):  # Days of the week
-					init_data.append({'product': p, 'quantity': qantities[i][d-1], 'client': client, 'day_of_week': d, 'bake': bake})
-			#print len(init_data), init_data[0]
+					init_data.append({'product': p, 'quantity': qantities[i-1][d-1], 'client': client, 'day_of_week': d, 'bake': bake})
+		
 			bake_formsets[bake] = StandingOrdersFormSet(initial=init_data)
+			#print bake_formsets[bake]
 			
 		return render(request, self.template_name, {
 			'client': client,
