@@ -16,9 +16,9 @@ urlpatterns = patterns('',
 	url(r'product/edit/(?P<pk>\d+)/$', UpdateView.as_view( model=Product, form_class=ProductForm, template_name="orders/new_form.html" ), name='product_edit'),
 	url(r'product/deactivate/(?P<pk>\d+)/$', ProductDeactivateView.as_view(success_url=reverse_lazy('product_deactivate')), name='product_deactivate'),
 
-	url(r'^orders/$', ListView.as_view(model=Order), name='order_list'),
-	url(r'^gen_so/$', generate_standing_orders, name='gen_standing_orders'),	
-	url(r'^so2orders/$', generate_orders, name='standing_orders_to_orders'),
+	url(r'^orders/$',	ListView.as_view(model=Order),	name='order_list'),
+	url(r'^gen_so/$',	generate_standing_orders,		name='gen_standing_orders'),	
+	url(r'^so2orders/$',generate_orders,				name='standing_orders_to_orders'),
 	
 	url(r'^cutsheet/$', CutSheetView.as_view(), name='cut_sheet'),
 	url(r'^cutsheet/(?P<day>[\d-]+)/$', CutSheetView.as_view(), name='cut_sheet'),

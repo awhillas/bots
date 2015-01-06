@@ -146,10 +146,9 @@ class ClientFormView(UpdateView):
 		)
 		
 	def post(self, request, *args, **kwargs):
-		"""
-		Handles POST requests, instantiating a form instance and its inline
-		formsets with the passed POST variables and then checking them for
-		validity.
+		""" Handles POST requests, instantiating a form instance and its inline
+			formsets with the passed POST variables and then checking them for
+			validity.
 		"""
 		self.object = None
 		form_class = self.get_form_class()
@@ -161,10 +160,9 @@ class ClientFormView(UpdateView):
 			return self.form_invalid(form, address_form)
 
 	def form_valid(self, form, address_form):
-		"""
-		Called if all forms are valid. Creates a Recipe instance along with
-		associated Ingredients and Instructions and then redirects to a
-		success page.
+		""" Called if all forms are valid. Creates a Recipe instance along with
+			associated Ingredients and Instructions and then redirects to a
+			success page.
 		"""
 		self.object = form.save()
 		address_form.instance = self.object
@@ -172,9 +170,8 @@ class ClientFormView(UpdateView):
 		return HttpResponseRedirect(self.get_success_url())
 
 	def form_invalid(self, form, address_form):
-		"""
-		Called if a form is invalid. Re-renders the context data with the
-		data-filled forms and errors.
+		""" Called if a form is invalid. Re-renders the context data with the
+			data-filled forms and errors.
 		"""
 		return self.render_to_response(
 			self.get_context_data(form=form, address_form=address_form)
