@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load to_class_name %}
+{% load order_tags %}
+
+{% block title %}{{ client }}, {{bake}}, Standing Orders{% endblock %}
+{% block page_title %} {{bake}} {% endblock %}
+{% block page_subtitle %}{{ client }}, Standing Orders{% endblock %}
+
+
+{% block css %}
+	<style>
+	input[type=number] { width: 4em; padding: 0 }
+	tbody th {
+		padding-right: 1em;
+		text-align: right
+	}
+	</style>
+{% endblock %}
+
+
+{% block page_content %}
+<form action="" method="post" class="pure-form pure-form-aligned">
+	{% csrf_token %}
+	{{ formset.management_form }}
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				{% for d in days %}
+					<th>{{ d }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			{% for form in formset %}
+				{% if forloop.counter0 == 0 %}  {# for the first product #}
+					<th>{{ products|index:0 }} {{forloop.counter0 }}</th>
+				{% endif %}
+				{% if forloop.counter0|divisibleby:7 and forloop.counter0 != 0 %}
+					</tr><tr><th>{{ products|dayi:forloop.counter0 }} {{forloop.counter0 }}</th>
+				{% endif %}
+				<td>
+				{# Include the hidden fields #}
+				{% for hidden in form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for field in form.visible_fields %}
+					{% if field.errors %}<div class="ErrorMessage">{{ field.errors }}</div>{% endif %}
+					{{ field }}
+				{% endfor %}
+				</td>
+			{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+	<div class="pure-controls">
+		<button type="submit" class="pure-button pure-button-primary">Update</button>
+	</div>
+</form>
+{% endblock %}

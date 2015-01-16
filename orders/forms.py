@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
-from django.forms.formsets import formset_factory
+from django.forms.formsets import formset_factory, BaseFormSet
 
 from orders.models import *
 
@@ -13,21 +13,20 @@ class AddressForm(ModelForm):
 class ClientForm(ModelForm):
 	class Meta:
 		model = Client
-		fields = ['name', 'primary_phone', 'accounts_phone', 'notes']
+		fields = ['name', 'primary_phone', 'accounts_phone', 'notes', 'active']
 
-ClientAddressFormSet = inlineformset_factory(Client, Address, form=AddressForm, extra=1, can_delete=False)
+ClientAddressFormSet = inlineformset_factory(Client, Address, form=AddressForm, extra=1)
 
 class ProductForm(ModelForm):
 	class Meta:
 		model = Product
+		exclude = []
 
-class StandingOrderFormlet(forms.Form):
-	""" Form for use in the formset data grid. """
-	forms.IntegerField(min_value=0)
-	
-class OrderFormlet(ModelForm):
+class StandingOrderFormlet(ModelForm):
 	class Meta:
-		model = Order
+		model = StandingOrder
 		fields = ['quantity']
+		labels = {'quantity':''}
 
-OrderFormSet = inlineformset_factory(Client, Order, form=OrderFormlet)
+BakeStandingOrdersInlineFormset = inlineformset_factory(Client, StandingOrder, form=StandingOrderFormlet,
+                                                        can_delete=False, extra=0)

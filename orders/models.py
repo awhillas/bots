@@ -22,6 +22,11 @@ class Address(models.Model):
 	def __unicode__(self):
 		return ', '.join([self.address1, self.address2, self.suburb, self.postcode, self.state])
 
+	def html(self):
+		# TODO: Should spit out hCard microformat: http://microformats.org/wiki/hcard
+		return '<br>'.join(filter(None, [self.address1, self.address2, self.suburb, self.postcode, self.state]))
+
+
 class Category(models.Model):
 	""" Bread product category.
 	"""
@@ -59,9 +64,12 @@ class Bake(models.Model):
 		help_text="Where in the order of bakes does this bake happen.")
 	days_till_deliver = models.PositiveSmallIntegerField(blank=False, null=False,
 		help_text="How many days from the bake will the goods be delivered? Zero for same day. 1 for next day.")
+	standing_orders = models.ManyToManyField("Client",
+		through='StandingOrder', related_name="bake_standing_orders")
 
 	def __unicode__(self):
 		return self.name + " Bake"
+
 
 class Product(models.Model):
 	""" Product that is produced by the bakery. 
@@ -81,8 +89,12 @@ class Product(models.Model):
 	large_change_qty = models.PositiveSmallIntegerField(blank=True, null=False, default=0,
 		help_text="How many will flag a large change notice in the admin.")
 
+	class Meta:
+		unique_together = ('name', 'weight')
+		ordering = ['name']
+
 	def get_absolute_url(self):
-		return reverse('author-detail', kwargs={'pk': self.pk})
+		return reverse('product_details', kwargs={'pk': self.pk})
 		
 	def __unicode__(self):
 		return ', '.join([self.name, str(intcomma(self.weight)) + 'g'])
@@ -129,6 +141,7 @@ class Order(models.Model):
 
 	class Meta:
 		unique_together = ('product', 'client', 'bake', 'delivery_date')
+		ordering = ['product__name']
 	
 	def convert_standing_order(cls, standing_order, date):
 		pass
@@ -138,6 +151,7 @@ class Order(models.Model):
 
 	def __unicode__(self):
 		return u", ".join([str(self.quantity)+"x", str(self.product), str(self.client), str(self.bake), str(self.delivery_date)])
+
 
 class StandingOrder(models.Model):
 	""" An order that is repeated every week. 
@@ -149,14 +163,15 @@ class StandingOrder(models.Model):
 		help_text="Day of the week of the delivery. Week starts Monday.")
 	quantity = models.PositiveSmallIntegerField(blank=True, null=True)
 	
-	objects = DataFrameManager()
+	objects = DataFrameManager()    # django-pandas module
 	
 	class Meta:
 		unique_together = ('product', 'client', 'bake', 'day_of_week')
+		#ordering = ['product__name']
 
 	class Admin:
 		list_display = ('',)
 		search_fields = ('',)
 
 	def __unicode__(self):
-		return u"StandingOrder"
+		return ', '.join(str(i) for i in [self.quantity, self.product, self.day_of_week, self.bake, self.client])

@@ -1,9 +1,14 @@
+from math import floor
+from pprint import pprint
+
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-#from django.forms.formsets import formset_factory
-from django.forms.models import modelformset_factory
+from django.forms.models import modelformset_factory, model_to_dict
+from django.forms.formsets import formset_factory
+#from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 
 from orders.models import *
 from orders.forms import *
@@ -20,7 +25,13 @@ from collections import defaultdict
 DAYS = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
 DATE_FORMAT = "%Y-%m-%d"
 
+
 def get_standing_orderes_table(qs):
+	"""
+	Get the standing orders pivot table
+	:param qs: Django QuerySet
+	:return: dict
+	"""
 	pt = qs.to_pivot_table(
 		fieldnames=['product__dough_type__name', 'product', 'day_of_week', 'quantity'],
 		rows=['product__dough_type__name', 'product'], 
@@ -34,6 +45,24 @@ def get_standing_orderes_table(qs):
 		sot[k[0]][k[1]] = p
 	return dict((k, dict(d)) for k, d in sot.iteritems()) # Convert to a dict
 
+def get_standing_orders(kwargs):
+	""" Makes sure all combinations of standing orders exist for the given client, bake, products combinations.
+	:return: List(Dict) of data suitable for use in an inline formset
+	"""
+	client, bake, products = get_bake_details(kwargs)
+	data = []
+	for product in products:
+		for d in range(0,7):
+			standing_order, created = StandingOrder.objects.get_or_create(day_of_week= d+1, product = product, client =
+				client, bake = bake, defaults = {'quantity': 0})
+			data.append(model_to_dict(standing_order))
+	return data
+
+def get_bake_details(kwargs):
+	client = Client.objects.get(pk=kwargs['client_pk'])
+	bake = Bake.objects.get(pk=kwargs['pk'])
+	products = Product.objects.filter(active=True).order_by('name', 'weight')  # Only active products
+	return (client, bake, products)
 
 def pretty(d, indent=0):
 	for key, value in d.iteritems():
@@ -42,6 +71,8 @@ def pretty(d, indent=0):
 			pretty(value, indent+1)
 		else:
 			print '\t' * (indent+1) + str(value)
+
+
 
 # Utility views
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -55,7 +86,6 @@ def generate_standing_orders(request):
 				for d in range(1, 8):
 					StandingOrder(client=c, product=p, bake=b, day_of_week=d, quantity=randint(0, 5)).save()
 	return redirect('home')
-
 
 def generate_orders(request):
 	""" Generate actual orders from standing orders. 
@@ -82,7 +112,6 @@ def generate_orders(request):
 			).save()
 
 
-
 # Generic views
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -107,6 +136,8 @@ class ClientDetailView(DetailView):
 	
 	def get_context_data(self, **kwargs):
 		context = super(ClientDetailView, self).get_context_data(**kwargs)
+		context.setdefault('address', None)
+		context['address'] = Address.objects.filter(client=context['client'])
 		bakes = {}
 		for bake in Bake.objects.all():
 			qs = StandingOrder.objects.filter(client=context['client']).filter(bake=bake).filter(product__active=True)
@@ -120,35 +151,29 @@ class ClientDetailView(DetailView):
 		
 		return context
 
-class ClientFormView(UpdateView):
-	""" see: http://kevindias.com/writing/django-class-based-views-multiple-inline-formsets/ 
-	"""
-	template_name = "orders/client_form.html"
-	model = Client
-	form_class = ClientForm
-	success_url = reverse_lazy('client_list')
-	
+class ClientCreateView(CreateView):
+	model=Client
+	form_class=ClientForm
+	template_name="orders/client_form.html"
+
 	def get(self, request, *args, **kwargs):
 		"""
 		Handles GET requests and instantiates blank versions of the form
 		and its inline formsets.
 		"""
-		if 'pk' in kwargs:
-			self.object = get_object_or_404(Client, pk=kwargs['pk'])
-			address_instance = Address.objects.get(client=self.object)
-		else:	
-			self.object = None
-			
-		form = self.get_form(self.get_form_class())
+		self.object = None
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
 		address_form = ClientAddressFormSet()
 		return self.render_to_response(
-			self.get_context_data(form=form, formset=address_form)
+			self.get_context_data(form=form, address_form=address_form, page_title='New')
 		)
-		
+
 	def post(self, request, *args, **kwargs):
-		""" Handles POST requests, instantiating a form instance and its inline
-			formsets with the passed POST variables and then checking them for
-			validity.
+		"""
+		Handles POST requests, instantiating a form instance and its inline
+		formsets with the passed POST variables and then checking them for
+		validity.
 		"""
 		self.object = None
 		form_class = self.get_form_class()
@@ -160,9 +185,10 @@ class ClientFormView(UpdateView):
 			return self.form_invalid(form, address_form)
 
 	def form_valid(self, form, address_form):
-		""" Called if all forms are valid. Creates a Recipe instance along with
-			associated Ingredients and Instructions and then redirects to a
-			success page.
+		"""
+		Called if all forms are valid. Creates a Recipe instance along with
+		associated Ingredients and Instructions and then redirects to a
+		success page.
 		"""
 		self.object = form.save()
 		address_form.instance = self.object
@@ -170,77 +196,115 @@ class ClientFormView(UpdateView):
 		return HttpResponseRedirect(self.get_success_url())
 
 	def form_invalid(self, form, address_form):
-		""" Called if a form is invalid. Re-renders the context data with the
-			data-filled forms and errors.
+		"""
+		Called if a form is invalid. Re-renders the context data with the
+		data-filled forms and errors.
 		"""
 		return self.render_to_response(
-			self.get_context_data(form=form, address_form=address_form)
-		)
+			self.get_context_data(form=form,
+								  address_form=address_form))
 
-
-class ClientStandingOrdersEditView(View):
-	template_name = "orders/StandingOrdersEditForm.html"
+class ClientEditView(UpdateView):
+	""" see: http://kevindias.com/writing/django-class-based-views-multiple-inline-formsets/ 
+	"""
+	template_name = "orders/client_form.html"
+	model = Client
+	form_class = ClientForm
+	#success_url = reverse_lazy('client_list')
 	
 	def get(self, request, *args, **kwargs):
-		client = Client.objects.get(pk=kwargs['pk'])
-		products = Product.objects.filter(active=True).order_by('name')
-		bake_formsets = {}
-		for bake in Bake.objects.all():
-			
-			StandingOrdersFormSet = modelformset_factory(Order, form=OrderFormlet, extra=0, can_order=False, can_delete=False)
-			qs = StandingOrder.objects.filter(client=client).filter(bake=bake).filter(product=products)
-			if len(qs) > 0:
-				#sot = get_standing_orderes_table(qs)
-				pt = qs.to_pivot_table(
-					fieldnames=['product', 'day_of_week', 'quantity'],
-					rows=['product'], 
-					cols=['day_of_week'], 
-					values='quantity', 
-					aggfunc=sum	
-				).fillna(0.0).astype(int)
-				init_data = []
-				qantities = pt.get_values()
-			else:
-				# No standing orders so need to generate 2D zeros array
-				qantities = [[0 for i in range(7)] for j in range(len(products))]
-			
-			print qantities
-				
-			for i, p in enumerate(products):
-				for d in range(1, 8):  # Days of the week
-					init_data.append({'product': p, 'quantity': qantities[i-1][d-1], 'client': client, 'day_of_week': d, 'bake': bake})
-		
-			bake_formsets[bake] = StandingOrdersFormSet(initial=init_data)
-			#print bake_formsets[bake]
-			
+		"""
+		Handles GET requests and instantiates blank versions of the form
+		and its inline formsets.
+		"""
+		self.object = Client.objects.get(pk=kwargs['pk'])
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		address_form = ClientAddressFormSet(instance=self.object)   # parent instance! (not address instance)
+		return self.render_to_response(
+			self.get_context_data(form=form, address_form=address_form, page_title='Edit')
+		)
+
+	def post(self, request, *args, **kwargs):
+		"""
+		Handles POST requests, instantiating a form instance and its inline
+		formsets with the passed POST variables and then checking them for
+		validity.
+		"""
+		self.object = Client.objects.get(pk=kwargs['pk'])
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		address_form = ClientAddressFormSet(self.request.POST, instance=self.object)
+		if (form.is_valid() and address_form.is_valid()):
+			return self.form_valid(form, address_form)
+		else:
+			return self.form_invalid(form, address_form)
+
+	def form_valid(self, form, address_form):
+		"""
+		Called if all forms are valid. Creates a Recipe instance along with
+		associated Ingredients and Instructions and then redirects to a
+		success page.
+		"""
+		self.object = form.save()
+		address_form.instance = self.object
+		address_form.save()
+		return HttpResponseRedirect(self.get_success_url())
+
+	def form_invalid(self, form, address_form):
+		"""
+		Called if a form is invalid. Re-renders the context data with the
+		data-filled forms and errors.
+		"""
+		errors1 = form.errors
+		errors2 = address_form.errors
+		self.something()
+		return self.render_to_response(
+			self.get_context_data(form=form, address_form=address_form))
+
+class ClientBakeStandingOrdersEditView(UpdateView):
+	template_name = "orders/BakeStandingOrdersEditForm.html"
+
+	def get_success_url(self):
+		return reverse_lazy('client_details', kwargs={'pk': self.kwargs['client_pk']})
+
+	def get(self, request, *args, **kwargs):
+		init = get_standing_orders(kwargs)  # ensure creation of all products for all days.
+		client, bake, products = get_bake_details(kwargs)
+		qs = StandingOrder.objects.filter(client=client, bake=bake, product=products).order_by('product__name', 'product__weight')
+		formset = BakeStandingOrdersInlineFormset(instance=client, queryset=qs)
+		#print "query: ", len(qs), " products: ", len(products)
 		return render(request, self.template_name, {
 			'client': client,
-			'bakes': Bake.objects.all(),
+			'bake': bake,
 			'days': DAYS,
-			'bake_formsets': bake_formsets,
+			'formset': formset,
 			'products': products
 		})
 
-class DeactivateView(UpdateView):
-	""" Set the 'active' column to false. 
-		Policy is that we never delete a client or prooduct as it will mess with the 
-		bookkeeping so we deactive instead.
-	"""
-	# TODO: finish this class
-	pass
-
-
-class ClientDeactivateView(DeactivateView):
-	model = Client
-	template_name = 'orders/confirm_delete.html'
-	success_url = reverse_lazy('client_list')
-
-
-class ProductDeactivateView(DeactivateView):
-	model = Product
-	template_name='orders/confirm_delete.html'
-	success_url = reverse_lazy('product_list')
-
+	def post(self, request, *args, **kwargs):
+		client, bake, products = get_bake_details(kwargs)
+		formset = BakeStandingOrdersInlineFormset(request.POST, instance=client)
+		if formset.is_valid():
+			i = 0
+			for form in formset:
+				standing_order = form.save(commit=False)
+				#standing_order.client = client
+				standing_order.bake = bake
+				standing_order.product = products[int(floor(i / 7))]
+				standing_order.day_of_week = i % 7 + 1
+				standing_order.save()
+				i += 1
+			return HttpResponseRedirect(self.get_success_url())
+		else:
+			print "Errors: ", formset.errors
+			return render(request, self.template_name, {
+				'client': client,
+				'bake': bake,
+				'days': DAYS,
+				'formset': formset,
+				'products': products
+			})
 
 class CutSheetView(View):
 	template_name = 'orders/cutsheet.html'
@@ -289,8 +353,7 @@ class CutSheetView(View):
 		
 		else:
 			return render(request, 'orders/no_order.html', {'date': cut_sheet_date})
-		
-		
+
 class PackingSlipsView(View):
 	template_name = 'orders/packing_slips.html'
 	

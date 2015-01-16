@@ -7,9 +7,21 @@
 {% endblock %}
 
 {% block page_content %}
+	<h2 class="content-subhead">Active</h2>
 	<ul>
 		{% for client in object_list %}
-			<li><a href="{{ client.get_absolute_url }}">{{ client.name }}</a> ph.{{ client.primary_phone }}</li>
+			{% if client.active %}
+				<li><a href="{{ client.get_absolute_url }}">{{ client.name }}</a> ph.{{ client.primary_phone }}</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+
+	<h2 class="content-subhead">Inactive</h2>
+	<ul>
+		{% for client in object_list %}
+			{% if not client.active %}
+				<li><a href="{{ client.get_absolute_url }}">{{ client.name }}</a> ph.{{ client.primary_phone }}</li>
+			{% endif %}
 		{% endfor %}
 	</ul>
 {% endblock %}

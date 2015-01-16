@@ -2,20 +2,23 @@
 {% load to_class_name %}
 
 {% block title %}New{% endblock %}
-{% block page_title %}New{% endblock %}
+{% block page_title %}{{page_title}}{% endblock %}
 {% block page_subtitle %}Fill in the form and click submit.{% endblock %}
 
 {% block page_content %}
 
 <form action="" method="post" class="pure-form pure-form-aligned">
 	{% csrf_token %}
+	{{ address_form.management_form }}
 	{% include "pure_form.html" %}
-	{% for formlet in formset %}
-		{% include "pure_form.html" with form=formlet %}
+	<h2>Address</h2>
+	{% for subform in address_form %}
+		{{ subform.id }}
+		{% include "pure_form.html" with form=subform %}
 	{% endfor %}
 
 	<div class="pure-controls">
-		<button type="submit" class="pure-button pure-button-primary">Submit</button>
+		<button type="submit" class="pure-button pure-button-primary">{{page_title}}</button>
 	</div>
 </form>
 

@@ -14,8 +14,7 @@
 {% endblock %}
 
 {% block page_content %}
-	{% for bake, formset in bake_formsets.items %}
-		<h2>{{ bake }}</h2>
+		{{ formset }}
 		<form action="" method="post" class="pure-form pure-form-aligned">
 			{% csrf_token %}
 			{{ formset.management_form }}
@@ -48,5 +47,4 @@
 				<button type="submit" class="pure-button pure-button-primary">Submit</button>
 			</div>
 		</form>
-	{% endfor %}
 {% endblock %}
