@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load to_class_name %}
+
+{% block title %}Edit{% endblock %}
+{% block page_title %}Edit {{ object|to_class_name }}{% endblock %}
+{% block page_subtitle %}Fill in the form and click the 'update' button bellow.{% endblock %}
+
+{% block page_content %}
+
+<form action="" method="post" class="pure-form pure-form-aligned">
+{% csrf_token %}
+{% include "pure_form.html" %}
+	<div class="pure-controls">
+		<button type="submit" class="pure-button button-edit">Update</button>
+	</div>
+</form>
+
+{% endblock %}

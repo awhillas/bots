@@ -25,6 +25,7 @@ These install/upgrade the following
 
 	sudo pip install -U Django
 	sudo pip install -U django_pandas
+	pip install -U django-floppyforms
 
 Once you have done all of this you should test your instillation that it works with the current version of the web-app
 

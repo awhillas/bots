@@ -1,0 +1,26 @@
+<table class="pure-table-striped sortable" width="100%">
+	<thead>
+	<tr>
+		<th>Client</th>
+		<th>Qty</th>
+		<th>Product</th>
+		<th>Bake</th>
+		<th>Baked date</th>
+		<th>Delivery Date</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for order in orders_list %}
+	<tr>
+		<td><a href="{{ order.client.get_absolute_url }}" >{{ order.client }}</a></td>
+		<td><a href="{% url 'order_edit' order.pk %}" class="pure-button button-edit button-xsmall">{{ order.quantity }}</a></td>
+		<td><a href="{{ order.product.get_absolute_url }}" >{{ order.product }}</td>
+		<td>{{ order.bake }}</td>
+		<td>{{ order.baked_on|date:"D j/n/y" }}</td>
+		<td>{{ order.delivery_date|date:"D j/n/y" }}</td>
+		<td><a href="{% url 'order_delete' order.pk %}" class="pure-button button-delete button-xsmall" title="Cancel Order">X</a</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>

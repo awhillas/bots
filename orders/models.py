@@ -30,7 +30,7 @@ class Address(models.Model):
 class Category(models.Model):
 	""" Bread product category.
 	"""
-	name = models.CharField(blank=True, max_length=100)
+	name = models.CharField(blank=True, max_length=100, unique=True)
 
 	class Admin:
 		list_display = ('name',)
@@ -43,7 +43,7 @@ class Category(models.Model):
 class Dough(models.Model):
 	""" Dough types. 
 	"""
-	name = models.CharField(blank=True, max_length=100)
+	name = models.CharField(blank=True, max_length=100, unique=True)
 	regular_bake = models.BooleanField(default=True)
 	
 	class Admin:
@@ -58,7 +58,7 @@ class Bake(models.Model):
 	""" One of the daily bake (events). 
 		For grouping orders into baking runs on the cut-sheet.
 	"""
-	name = models.CharField(blank=False, max_length=50,
+	name = models.CharField(blank=False, max_length=50, unique=True,
 		help_text="Name that appears on the cut-sheet.")
 	ordering = models.PositiveSmallIntegerField(blank=False, null=False,
 		help_text="Where in the order of bakes does this bake happen.")
@@ -103,14 +103,14 @@ class Product(models.Model):
 class Client(models.Model):
 	""" A Paying customer. 
 	"""
-	name = models.CharField(blank=False, max_length=100)
+	name = models.CharField(blank=False, max_length=100, unique=True)
 	primary_phone = models.CharField(blank=True, max_length=100, 
 		help_text="Their main contact.")
 	accounts_phone = models.CharField(blank=True, max_length=100)
 	notes = models.TextField(blank=True)
-	orders = models.ManyToManyField(Product, 
+	orders = models.ManyToManyField(Product,
 		through='Order', related_name="order_clients")
-	standing_orders = models.ManyToManyField(Product, 
+	standing_orders = models.ManyToManyField(Product,
 		through='StandingOrder', related_name="standing_order_clients")
 	active = models.BooleanField(default=True, help_text="Do we process this clients orders?")
 		
@@ -147,7 +147,7 @@ class Order(models.Model):
 		pass
 	
 	def get_absolute_url(self):
-		return reverse('author-detail', kwargs={'pk': self.pk})
+		return reverse('orders_list', kwargs={'pk': self.pk})
 
 	def __unicode__(self):
 		return u", ".join([str(self.quantity)+"x", str(self.product), str(self.client), str(self.bake), str(self.delivery_date)])

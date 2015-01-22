@@ -15,7 +15,9 @@
 {% endblock %}
 
 {% block pre_main_script %}
-<script src="{% static "js/ui.js" %}"></script>
+	<script src="{% static "js/ui.js" %}"></script>
+	<script src="{% static "js/sorttable.js" %}"></script>
+	{% block js %}{% endblock %}
 {% endblock %}
 
 {% block content %}

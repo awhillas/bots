@@ -1,46 +1,52 @@
 {% extends "base.html" %}
 {% load humanize %}
 
-{% block title %}{{ object.name }}, Details{% endblock %}
-{% block page_title %}{{ object.name }}, {{object.weight|intcomma}}g {% endblock %}
+{% block title %}
+	{{ object.name }}, Details
+{% endblock %}
+
+{% block page_title %}
+	{{ object.name }}, {{object.weight|intcomma}}g {% if not object.active %}(inactive){% endif %}
+{% endblock %}
+
 {% block page_subtitle %}
-<a href="{% url 'product_edit' object.pk %}" class="pure-button button-edit button-xsmall">Edit</a>
-<a href="{% url 'product_deactivate' object.pk %}"  class="pure-button button-delete button-xsmall">De-Activate</a>
+	<a href="{% url 'product_edit' object.pk %}" class="pure-button button-edit button-xsmall">Edit</a>
 {% endblock %}
 
 {% block page_content %}
 
 	<div class="pure-g">
-		<div class="pure-u-1-2">Ingredients</div>
-		<div class="pure-u-1-2">{{ object.ingredients }}</div>
+		<div class="pure-u-1-4">Ingredients:</div>
+		<div class="pure-u-3-4">{{ object.ingredients }}</div>
 	</div>
 	<div class="pure-g">
-		<div class="pure-u-1-2">Category</div>
-		<div class="pure-u-1-2">{{ object.category }}</div>
+		<div class="pure-u-1-4">Category:</div>
+		<div class="pure-u-3-4">{{ object.category }}</div>
 	</div>
 	<div class="pure-g">
-		<div class="pure-u-1-2">Dough type</div>
-		<div class="pure-u-1-2">{{ object.dough_type }}</div>
+		<div class="pure-u-1-4">Dough type:</div>
+		<div class="pure-u-3-4">{{ object.dough_type }}</div>
 	</div>
 	<div class="pure-g">
-		<div class="pure-u-1-2">Weight</div>
-		<div class="pure-u-1-2">{{ object.weight|intcomma }}g</div>
+		<div class="pure-u-1-4">Weight:</div>
+		<div class="pure-u-3-4">{{ object.weight|intcomma }}g</div>
 	</div>
 	<div class="pure-g">
-		<div class="pure-u-1-2">Price (wholesale price)</div>
-		<div class="pure-u-1-2">${{ object.price|intcomma }}</div>
+		<div class="pure-u-1-4">Price (wholesale price):</div>
+		<div class="pure-u-3-4">${{ object.price|intcomma }}</div>
 	</div>
 	<div class="pure-g">
-		<div class="pure-u-1-2">Large change qty.</div>
-		<div class="pure-u-1-2">{{ object.large_change_qty }}</div>
+		<div class="pure-u-1-4">Large change qty.:</div>
+		<div class="pure-u-3-4">{{ object.large_change_qty }}</div>
 	</div>
 
-	<span class="pure-button">{% if object.sliced %}Sliced{% else %}Unsliced{% endif %}</span>
+	<span class="pure-button">{% if object.sliced %}Sliced{% else %}unsliced{% endif %}</span>
 	<span class="pure-button" title="Available or not. We do not delete products as it messes with the old accounting.">{% if object.active %}Active{% else %}Inactive{% endif %}</span>
 	{% if object.special %}<span class="pure-button" title="Only for special one off orders.">Special</span>{% endif %}
 	
-	<h2 class="content-subhead">Orders</h2>
-	
-	<!-- TODO: Display a grid of standing orders and a list of recent oneoff orders -->
-	
+	<h2 class="content-subhead">Orders (current)</h2>
+	{% include "orders/orders_inline_list.html" %}
+
+	<h2 class="content-subhead">Standing Orders</h2>
+	{% include "orders/standingorders_by_client.html" with caption="Standing Order by Client" %}
 {% endblock %}

@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}Orders{% endblock %}
+
 {% block page_title %}Orders{% endblock %}
-{% block page_subtitle %}Orders listing{% endblock %}
+
+{% block page_subtitle %}List of active orders. <a href="{% url 'order_new' %}" class="pure-button button-add button-xsmall">New</a>{% endblock %}
+
+{% block js %}
+{% endblock %}
 
 {% block page_content %}
-	<ul>
-		{% for order in object_list %}
-			<li>{{ order.name }}</li>
-		{% endfor %}
-	</ul>
+	{% include "orders/orders_inline_list.html" with orders_list=object_list %}
 {% endblock %}

@@ -11,7 +11,7 @@
 {% block page_content %}
 	<div class="pure-g">
 		<div class="pure-u-1-3">
-			<h2 class="content-subhead">Contact Details</h2>
+			<h1 class="content-subhead">Contact Details</h1>
 			<p>Phone: {{ object.primary_phone }}</p>
 			<p>Accounts Phone:{{ object.accounts_phone }}</p>
 		</div>
@@ -26,10 +26,16 @@
 			<p>{{ object.notes }}</p>
 		</div>
 	</div>
-	<h2>Orders</h2>
+
+	<h1 class="content-subhead">Orders, Current</h1>
+	{% include "orders/orders_inline_list.html" %}
+
+	<h1 class="content-subhead">Standing Orders</h1>
 	{% for bake, sot in bake_standing_order_tables.items %}
-		<h2 class="content-subhead">{{ bake }} <a href="{% url 'client_bake_edit' object.pk bake.pk %}"
-		                                          class="pure-button button-edit button-xsmall">Edit</a></h2>
+		<h2 class="content-subhead">
+			{{ bake }}
+			<a href="{% url 'client_bake_edit' object.pk bake.pk %}" class="pure-button button-edit button-xsmall">Edit</a>
+		</h2>
 		{% include "orders/standingorders_pivot_table.html" with caption="Standing Order Totals" %}
 	{% endfor %}
 	

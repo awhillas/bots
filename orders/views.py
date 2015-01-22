@@ -3,7 +3,7 @@ from pprint import pprint
 
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, ListView, DetailView
+from django.views.generic import View, ListView, DetailView, DeleteView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.forms.models import modelformset_factory, model_to_dict
 from django.forms.formsets import formset_factory
@@ -26,17 +26,17 @@ DAYS = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
 DATE_FORMAT = "%Y-%m-%d"
 
 
-def get_standing_orderes_table(qs):
+def get_standing_orders_by_product(qs):
 	"""
-	Get the standing orders pivot table
+	Get the standing orders pivot table, by products / day-of-the-week
 	:param qs: Django QuerySet
 	:return: dict
 	"""
 	pt = qs.to_pivot_table(
 		fieldnames=['product__dough_type__name', 'product', 'day_of_week', 'quantity'],
-		rows=['product__dough_type__name', 'product'], 
-		cols=['day_of_week'], 
-		values='quantity', 
+		rows=['product__dough_type__name', 'product'],
+		cols=['day_of_week'],
+		values='quantity',
 		aggfunc=sum
 	).fillna(0.0).astype(int)
 	# defaultdict coz we don't know what the keys are ahead of time
@@ -44,6 +44,22 @@ def get_standing_orderes_table(qs):
 	for k, p in zip(pt.index.get_values(), pt.fillna(0.0).astype(int).get_values()):
 		sot[k[0]][k[1]] = p
 	return dict((k, dict(d)) for k, d in sot.iteritems()) # Convert to a dict
+
+def get_standing_orders_by_client(qs):
+	"""
+	Get the standing orders pivot table, by clients / day-of-the-week
+	:param qs: Django QuerySet
+	:return: List of tuples with the first column being a Client, 2nd being standing orders for that client for a week
+	"""
+	pt = qs.to_pivot_table(
+		fieldnames=['client', 'day_of_week', 'quantity'],
+		rows=['client'],
+		cols=['day_of_week'],
+		values='quantity',
+		aggfunc=sum
+	).fillna(0.0).astype(int)
+	clients = [Client.objects.get(name=name) for name in pt.index.get_values()]
+	return zip(clients, pt.fillna(0.0).astype(int).get_values())
 
 def get_standing_orders(kwargs):
 	""" Makes sure all combinations of standing orders exist for the given client, bake, products combinations.
@@ -96,20 +112,22 @@ def generate_orders(request):
 	bake_date = date.today() + timedelta(days=1) # ... a day ahead.
 	for bake in Bake.objects.all():
 		for so in StandingOrder.objects.filter(
-			client__active=True, 
-			product__active=True,
-			product__dough_type__regular_bake=True,
-			bake=bake,
-			day_of_week=(bake_date.isoweekday() - 1 + bake.days_till_deliver) % 7 + 1
+			client__active = True,
+			product__active = True,
+			product__dough_type__regular_bake = True,
+			bake = bake,
+			day_of_week = (bake_date.isoweekday() - 1 + bake.days_till_deliver) % 7 + 1,
+			quantity__gt = 0
 		):
 			Order(
-				product=Product(so.product_id),
-				client=Client(so.client_id),
-				bake=bake,
-				quantity=so.quantity,
+				product = Product(so.product_id),
+				client = Client(so.client_id),
+				bake = bake,
+				quantity = so.quantity,
 				delivery_date = bake_date + timedelta(days=bake.days_till_deliver),
 				baked_on = bake_date 
 			).save()
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 # Generic views
@@ -120,7 +138,7 @@ class HomeView(View):
 	
 	def get(self, request, *args, **kwargs):
 		qs = StandingOrder.objects.filter(client__active=True, product__active=True)
-		sot = get_standing_orderes_table(qs)
+		sot = get_standing_orders_by_product(qs)
 		
 		return render(request, self.template_name, {
 			'days': DAYS,
@@ -142,13 +160,14 @@ class ClientDetailView(DetailView):
 		for bake in Bake.objects.all():
 			qs = StandingOrder.objects.filter(client=context['client']).filter(bake=bake).filter(product__active=True)
 			if len(qs) > 0:
-				bakes[bake] = get_standing_orderes_table(qs)
+				bakes[bake] = get_standing_orders_by_product(qs)
 			else:
 				bakes[bake] = []
 		context['bake_standing_order_tables'] = bakes
 		context['days'] = DAYS
 		context['bakes'] = Bake.objects.all()
-		
+		context['orders_list'] = Order.objects.filter(client=context['client'], baked_on__gte=date.today(), quantity__gt=0)
+
 		return context
 
 class ClientCreateView(CreateView):
@@ -372,3 +391,52 @@ class PackingSlipsView(View):
 		slips = dict((k, dict(d)) for k, d in slips.iteritems()) # Convert to a dict
 		
 		return render(request, self.template_name, { 'slips':slips, 'day':day })
+
+class OrdersListView(ListView):
+	model = Order
+	queryset = Order.objects.filter(baked_on__gte=date.today(), quantity__gt=0).order_by('client', 'product')
+
+class OrderUpdate(UpdateView):
+	model = Order
+	form_class = OrderForm
+	template_name = "orders/object_edit_form.html"
+	success_url = reverse_lazy('order_list')
+
+class OrderCreate(CreateView):
+	model = Order
+	form_class = OrderForm
+	template_name = "orders/object_new_form.html"
+	success_url = reverse_lazy('order_list')
+
+	def get_context_data(self, **kwargs):
+		context = super(OrderCreate, self).get_context_data(**kwargs)
+		context['object_name'] = 'Order'
+		return context
+
+class OrderDelete(DeleteView):
+	model = Order
+	template_name = "orders/confirm_delete.html"
+	success_url = reverse_lazy('order_list')
+
+class ProductDetailView(DetailView):
+	model = Product
+
+	def get_context_data(self, **kwargs):
+		context = super(ProductDetailView, self).get_context_data(**kwargs)
+
+		# Add orders
+		context['orders_list'] = Order.objects.filter(
+			baked_on__gte=date.today(),
+			quantity__gt=0,
+			product=self.get_object()
+		).order_by('client', 'product')
+
+		# Add product specific Standing Orders
+		context['days'] = DAYS
+		qs = StandingOrder.objects.filter(client__active=True, product=self.get_object())
+		if len(qs) > 0:
+			context['sot'] = get_standing_orders_by_client(qs)
+		else:
+			context['sot'] = []
+
+		return context
